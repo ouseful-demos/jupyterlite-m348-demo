@@ -37,7 +37,7 @@
       {
         "extension": "./extension",
         "liteExtension": true,
-        "load": "static/remoteEntry.078e053dd542b93b5e7f.js",
+        "load": "static/remoteEntry.7a5d7e9d1ceef9887364.js",
         "name": "@r-wasm/jupyterlite-webr-kernel",
         "style": "./style"
       },
@@ -60,6 +60,13 @@
         "liteExtension": false,
         "load": "static/remoteEntry.6e5b4293f31361324af2.js",
         "name": "jupyterlab-myst",
+        "style": "./style"
+      },
+      {
+        "extension": "./extension",
+        "liteExtension": false,
+        "load": "static/remoteEntry.c7a31b7a4c60a21a3aa0.js",
+        "name": "jupyterlab-open-url-parameter",
         "style": "./style"
       },
       {
