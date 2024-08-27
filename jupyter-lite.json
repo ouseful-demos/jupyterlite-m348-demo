@@ -37,7 +37,7 @@
       {
         "extension": "./extension",
         "liteExtension": true,
-        "load": "static/remoteEntry.3392251c15804913cc47.js",
+        "load": "static/remoteEntry.6cd4c359bdc7d968a608.js",
         "name": "@r-wasm/jupyterlite-webr-kernel",
         "style": "./style"
       },
