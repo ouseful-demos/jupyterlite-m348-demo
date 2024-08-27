@@ -37,7 +37,7 @@
       {
         "extension": "./extension",
         "liteExtension": true,
-        "load": "static/remoteEntry.7a5d7e9d1ceef9887364.js",
+        "load": "static/remoteEntry.ff9132f886fa9070031a.js",
         "name": "@r-wasm/jupyterlite-webr-kernel",
         "style": "./style"
       },
@@ -86,7 +86,7 @@
       {
         "extension": "./extension",
         "liteExtension": false,
-        "load": "static/remoteEntry.5792a47aee7240a49818.js",
+        "load": "static/remoteEntry.366a53ce48116007fbca.js",
         "name": "jupyterlab_empinken_extension",
         "style": "./style"
       },

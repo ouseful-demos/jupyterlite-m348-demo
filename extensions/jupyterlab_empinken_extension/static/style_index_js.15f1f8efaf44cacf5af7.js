@@ -441,13 +441,15 @@ Define classes for the base empinken cell types and default tag settings.
 */
 
 .cell-tag-style-activity,
-body[data-notebook='notebooks'] .jp-Notebook .jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-activity,
+body[data-notebook='notebooks'] div.jp-Notebook div.jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-activity,
+body[data-notebook='notebooks'] div.jp-Notebook div.jp-Cell.jp-CodeCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-activity,
 .iou-activity-node {
   background-color: var(--iou-activity-bg-color) !important;
 }
 
 .cell-tag-style-solution,
-body[data-notebook='notebooks'] .jp-Notebook .jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-solution,
+body[data-notebook='notebooks'] div.jp-Notebook div.jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-solution,
+body[data-notebook='notebooks'] div.jp-Notebook div.jp-Cell.jp-CodeCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-solution,
 .iou-solution-node {
   background-color: var(--iou-solution-bg-color) !important;
 }
@@ -458,20 +460,22 @@ So go defensive.
 */
 .cell-tag-style-learner,
 .cell-tag-style-student,
-body[data-notebook='notebooks'] .jp-Notebook .jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-learner,
-body[data-notebook='notebooks'] .jp-Notebook .jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-student,
+body[data-notebook='notebooks'] div.jp-Notebook div.jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-learner,
+body[data-notebook='notebooks'] div.jp-Notebook div.jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-student,
+body[data-notebook='notebooks'] div.jp-Notebook div.jp-Cell.jp-CodeCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-learner,
+body[data-notebook='notebooks'] div.jp-Notebook div.jp-Cell.jp-CodeCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-student,
 .iou-learner-node {
   background-color: var(--iou-learner-bg-color) !important;
 }
 
 .cell-tag-style-tutor,
 .cell-tag-style-commentate,
-body[data-notebook='notebooks'] .jp-Notebook .jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-tutor,
-body[data-notebook='notebooks'] .jp-Notebook .jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-commentate,
+body[data-notebook='notebooks'] div.jp-Notebook div.jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-tutor,
+body[data-notebook='notebooks'] div.jp-Notebook div.jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-commentate,
 .iou-tutor-node {
   background-color: var(--iou-tutor-bg-color) !important;
 }
-`, "",{"version":3,"sources":["webpack://./style/base.css"],"names":[],"mappings":"AAAA;;;;CAIC;;AAED;EACE,kCAAkC;EAClC,mCAAmC;EACnC,mCAAmC;EACnC,+BAA+B;AACjC;;AAEA;;;;;;CAMC;;AAED;;;EAGE,yDAAyD;AAC3D;;AAEA;;;EAGE,yDAAyD;AAC3D;;AAEA;;;CAGC;AACD;;;;;EAKE,wDAAwD;AAC1D;;AAEA;;;;;EAKE,sDAAsD;AACxD","sourcesContent":["/*\n    See the JupyterLab Developer Guide for useful CSS Patterns:\n\n    https://jupyterlab.readthedocs.io/en/stable/developer/css.html\n*/\n\n:root {\n  --iou-activity-bg-color: lightblue;\n  --iou-solution-bg-color: lightgreen;\n  --iou-learner-bg-color: lightyellow;\n  --iou-tutor-bg-color: lightpink;\n}\n\n/*\nThe current approach is brittle because the extension allows\nthe tags, which are mapped onto cell classes, to be user specified\naway from the empinken cell types.\n\nDefine classes for the base empinken cell types and default tag settings.\n*/\n\n.cell-tag-style-activity,\nbody[data-notebook='notebooks'] .jp-Notebook .jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-activity,\n.iou-activity-node {\n  background-color: var(--iou-activity-bg-color) !important;\n}\n\n.cell-tag-style-solution,\nbody[data-notebook='notebooks'] .jp-Notebook .jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-solution,\n.iou-solution-node {\n  background-color: var(--iou-solution-bg-color) !important;\n}\n\n/* For the learner and student empinken cell types, \nthe default partial tag is different to the cell type.\nSo go defensive.\n*/\n.cell-tag-style-learner,\n.cell-tag-style-student,\nbody[data-notebook='notebooks'] .jp-Notebook .jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-learner,\nbody[data-notebook='notebooks'] .jp-Notebook .jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-student,\n.iou-learner-node {\n  background-color: var(--iou-learner-bg-color) !important;\n}\n\n.cell-tag-style-tutor,\n.cell-tag-style-commentate,\nbody[data-notebook='notebooks'] .jp-Notebook .jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-tutor,\nbody[data-notebook='notebooks'] .jp-Notebook .jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-commentate,\n.iou-tutor-node {\n  background-color: var(--iou-tutor-bg-color) !important;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./style/base.css"],"names":[],"mappings":"AAAA;;;;CAIC;;AAED;EACE,kCAAkC;EAClC,mCAAmC;EACnC,mCAAmC;EACnC,+BAA+B;AACjC;;AAEA;;;;;;CAMC;;AAED;;;;EAIE,yDAAyD;AAC3D;;AAEA;;;;EAIE,yDAAyD;AAC3D;;AAEA;;;CAGC;AACD;;;;;;;EAOE,wDAAwD;AAC1D;;AAEA;;;;;EAKE,sDAAsD;AACxD","sourcesContent":["/*\n    See the JupyterLab Developer Guide for useful CSS Patterns:\n\n    https://jupyterlab.readthedocs.io/en/stable/developer/css.html\n*/\n\n:root {\n  --iou-activity-bg-color: lightblue;\n  --iou-solution-bg-color: lightgreen;\n  --iou-learner-bg-color: lightyellow;\n  --iou-tutor-bg-color: lightpink;\n}\n\n/*\nThe current approach is brittle because the extension allows\nthe tags, which are mapped onto cell classes, to be user specified\naway from the empinken cell types.\n\nDefine classes for the base empinken cell types and default tag settings.\n*/\n\n.cell-tag-style-activity,\nbody[data-notebook='notebooks'] div.jp-Notebook div.jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-activity,\nbody[data-notebook='notebooks'] div.jp-Notebook div.jp-Cell.jp-CodeCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-activity,\n.iou-activity-node {\n  background-color: var(--iou-activity-bg-color) !important;\n}\n\n.cell-tag-style-solution,\nbody[data-notebook='notebooks'] div.jp-Notebook div.jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-solution,\nbody[data-notebook='notebooks'] div.jp-Notebook div.jp-Cell.jp-CodeCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-solution,\n.iou-solution-node {\n  background-color: var(--iou-solution-bg-color) !important;\n}\n\n/* For the learner and student empinken cell types, \nthe default partial tag is different to the cell type.\nSo go defensive.\n*/\n.cell-tag-style-learner,\n.cell-tag-style-student,\nbody[data-notebook='notebooks'] div.jp-Notebook div.jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-learner,\nbody[data-notebook='notebooks'] div.jp-Notebook div.jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-student,\nbody[data-notebook='notebooks'] div.jp-Notebook div.jp-Cell.jp-CodeCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-learner,\nbody[data-notebook='notebooks'] div.jp-Notebook div.jp-Cell.jp-CodeCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-student,\n.iou-learner-node {\n  background-color: var(--iou-learner-bg-color) !important;\n}\n\n.cell-tag-style-tutor,\n.cell-tag-style-commentate,\nbody[data-notebook='notebooks'] div.jp-Notebook div.jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-tutor,\nbody[data-notebook='notebooks'] div.jp-Notebook div.jp-Cell.jp-MarkdownCell.jp-Notebook-cell.jp-mod-active.cell-tag-style-commentate,\n.iou-tutor-node {\n  background-color: var(--iou-tutor-bg-color) !important;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -533,4 +537,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /***/ })
 
 }]);
-//# sourceMappingURL=style_index_js.52782c2bb22fbe305be4.js.map
+//# sourceMappingURL=style_index_js.15f1f8efaf44cacf5af7.js.map

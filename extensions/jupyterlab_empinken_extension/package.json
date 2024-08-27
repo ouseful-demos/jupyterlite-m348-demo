@@ -1,6 +1,6 @@
 {
   "name": "jupyterlab_empinken_extension",
-  "version": "0.5.2",
+  "version": "0.5.4",
   "description": "A JupyterLab extension for colouring notebook cell backgrounds.",
   "keywords": [
     "jupyter",
@@ -104,7 +104,7 @@
     "outputDir": "jupyterlab_empinken_extension/labextension",
     "schemaDir": "schema",
     "_build": {
-      "load": "static/remoteEntry.5792a47aee7240a49818.js",
+      "load": "static/remoteEntry.366a53ce48116007fbca.js",
       "extension": "./extension",
       "style": "./style"
     }

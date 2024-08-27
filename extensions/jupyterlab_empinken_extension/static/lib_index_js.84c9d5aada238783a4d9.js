@@ -175,7 +175,7 @@ const create_empinken_commands = (app, notebookTracker, palette, settings) => {
         // Use a simple label text label for the button
         // Really this should be a vector image?
         const label = typ[0].toUpperCase();
-        console.log(`typ ${typ} has tag ${typ} ok? `);
+        // console.log(`typ ${typ} has tag ${typ} ok? `);
         // Add the command and also register and display buttons if required
         add_command(`empkn_${typ}`, // The command name suffix
         typ, // The empinken cell type
@@ -271,4 +271,4 @@ const plugin = {
 /***/ })
 
 }]);
-//# sourceMappingURL=lib_index_js.22fd585b0124320e8b17.js.map
+//# sourceMappingURL=lib_index_js.84c9d5aada238783a4d9.js.map

@@ -124,7 +124,7 @@ __webpack_require__.d(exports, {
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "" + chunkId + "." + {"webpack_sharing_consume_default_jupyterlab_apputils-webpack_sharing_consume_default_jupyterla-0b84ef":"c9ed5b5bc246cb69e83b","lib_index_js":"22fd585b0124320e8b17","style_index_js":"52782c2bb22fbe305be4","vendors-node_modules_jupyterlab-celltagsclasses_lib_index_js":"420503f5113405cdf5ff","webpack_sharing_consume_default_jupyterlab_cells":"de3c1790bdcf4b2f5811"}[chunkId] + ".js";
+/******/ 			return "" + chunkId + "." + {"webpack_sharing_consume_default_jupyterlab_apputils-webpack_sharing_consume_default_jupyterla-0b84ef":"c9ed5b5bc246cb69e83b","lib_index_js":"84c9d5aada238783a4d9","style_index_js":"15f1f8efaf44cacf5af7","vendors-node_modules_jupyterlab-celltagsclasses_lib_index_js":"420503f5113405cdf5ff","webpack_sharing_consume_default_jupyterlab_cells":"de3c1790bdcf4b2f5811"}[chunkId] + ".js";
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -244,7 +244,7 @@ __webpack_require__.d(exports, {
 /******/ 			switch(name) {
 /******/ 				case "default": {
 /******/ 					register("jupyterlab-celltagsclasses", "0.5.1", () => (Promise.all([__webpack_require__.e("vendors-node_modules_jupyterlab-celltagsclasses_lib_index_js"), __webpack_require__.e("webpack_sharing_consume_default_jupyterlab_apputils-webpack_sharing_consume_default_jupyterla-0b84ef"), __webpack_require__.e("webpack_sharing_consume_default_jupyterlab_cells")]).then(() => (() => (__webpack_require__(/*! ./node_modules/jupyterlab-celltagsclasses/lib/index.js */ "./node_modules/jupyterlab-celltagsclasses/lib/index.js"))))));
-/******/ 					register("jupyterlab_empinken_extension", "0.5.2", () => (Promise.all([__webpack_require__.e("webpack_sharing_consume_default_jupyterlab_apputils-webpack_sharing_consume_default_jupyterla-0b84ef"), __webpack_require__.e("lib_index_js")]).then(() => (() => (__webpack_require__(/*! ./lib/index.js */ "./lib/index.js"))))));
+/******/ 					register("jupyterlab_empinken_extension", "0.5.4", () => (Promise.all([__webpack_require__.e("webpack_sharing_consume_default_jupyterlab_apputils-webpack_sharing_consume_default_jupyterla-0b84ef"), __webpack_require__.e("lib_index_js")]).then(() => (() => (__webpack_require__(/*! ./lib/index.js */ "./lib/index.js"))))));
 /******/ 				}
 /******/ 				break;
 /******/ 			}
@@ -294,20 +294,38 @@ __webpack_require__.d(exports, {
 /******/ 			// see webpack/lib/util/semver.js for original code
 /******/ 			if(0 in range){version=parseVersion(version);var e=range[0],r=e<0;r&&(e=-e-1);for(var n=0,i=1,a=!0;;i++,n++){var f,s,g=i<range.length?(typeof range[i])[0]:"";if(n>=version.length||"o"==(s=(typeof(f=version[n]))[0]))return!a||("u"==g?i>e&&!r:""==g!=r);if("u"==s){if(!a||"u"!=g)return!1}else if(a)if(g==s)if(i<=e){if(f!=range[i])return!1}else{if(r?f>range[i]:f<range[i])return!1;f!=range[i]&&(a=!1)}else if("s"!=g&&"n"!=g){if(r||i<=e)return!1;a=!1,i--}else{if(i<=e||s<g!=r)return!1;a=!1}else"s"!=g&&"n"!=g&&(a=!1,i--)}}var t=[],o=t.pop.bind(t);for(n=1;n<range.length;n++){var u=range[n];t.push(1==u?o()|o():2==u?o()&o():u?satisfy(u,version):!o())}return!!o();
 /******/ 		}
-/******/ 		var ensureExistence = (scopeName, key) => {
-/******/ 			var scope = __webpack_require__.S[scopeName];
-/******/ 			if(!scope || !__webpack_require__.o(scope, key)) throw new Error("Shared module " + key + " doesn't exist in shared scope " + scopeName);
-/******/ 			return scope;
+/******/ 		var exists = (scope, key) => {
+/******/ 			return scope && __webpack_require__.o(scope, key);
+/******/ 		}
+/******/ 		var get = (entry) => {
+/******/ 			entry.loaded = 1;
+/******/ 			return entry.get()
 /******/ 		};
-/******/ 		var findVersion = (scope, key) => {
-/******/ 			var versions = scope[key];
+/******/ 		var eagerOnly = (versions) => {
+/******/ 			return Object.keys(versions).reduce((filtered, version) => {
+/******/ 					if (versions[version].eager) {
+/******/ 						filtered[version] = versions[version];
+/******/ 					}
+/******/ 					return filtered;
+/******/ 			}, {});
+/******/ 		};
+/******/ 		var findLatestVersion = (scope, key, eager) => {
+/******/ 			var versions = eager ? eagerOnly(scope[key]) : scope[key];
 /******/ 			var key = Object.keys(versions).reduce((a, b) => {
+/******/ 				return !a || versionLt(a, b) ? b : a;
+/******/ 			}, 0);
+/******/ 			return key && versions[key];
+/******/ 		};
+/******/ 		var findSatisfyingVersion = (scope, key, requiredVersion, eager) => {
+/******/ 			var versions = eager ? eagerOnly(scope[key]) : scope[key];
+/******/ 			var key = Object.keys(versions).reduce((a, b) => {
+/******/ 				if (!satisfy(requiredVersion, b)) return a;
 /******/ 				return !a || versionLt(a, b) ? b : a;
 /******/ 			}, 0);
 /******/ 			return key && versions[key]
 /******/ 		};
-/******/ 		var findSingletonVersionKey = (scope, key) => {
-/******/ 			var versions = scope[key];
+/******/ 		var findSingletonVersionKey = (scope, key, eager) => {
+/******/ 			var versions = eager ? eagerOnly(scope[key]) : scope[key];
 /******/ 			return Object.keys(versions).reduce((a, b) => {
 /******/ 				return !a || (!versions[a].loaded && versionLt(a, b)) ? b : a;
 /******/ 			}, 0);
@@ -315,110 +333,79 @@ __webpack_require__.d(exports, {
 /******/ 		var getInvalidSingletonVersionMessage = (scope, key, version, requiredVersion) => {
 /******/ 			return "Unsatisfied version " + version + " from " + (version && scope[key][version].from) + " of shared singleton module " + key + " (required " + rangeToString(requiredVersion) + ")"
 /******/ 		};
-/******/ 		var getSingleton = (scope, scopeName, key, requiredVersion) => {
-/******/ 			var version = findSingletonVersionKey(scope, key);
-/******/ 			return get(scope[key][version]);
-/******/ 		};
-/******/ 		var getSingletonVersion = (scope, scopeName, key, requiredVersion) => {
-/******/ 			var version = findSingletonVersionKey(scope, key);
-/******/ 			if (!satisfy(requiredVersion, version)) warn(getInvalidSingletonVersionMessage(scope, key, version, requiredVersion));
-/******/ 			return get(scope[key][version]);
-/******/ 		};
-/******/ 		var getStrictSingletonVersion = (scope, scopeName, key, requiredVersion) => {
-/******/ 			var version = findSingletonVersionKey(scope, key);
-/******/ 			if (!satisfy(requiredVersion, version)) throw new Error(getInvalidSingletonVersionMessage(scope, key, version, requiredVersion));
-/******/ 			return get(scope[key][version]);
-/******/ 		};
-/******/ 		var findValidVersion = (scope, key, requiredVersion) => {
+/******/ 		var getInvalidVersionMessage = (scope, scopeName, key, requiredVersion, eager) => {
 /******/ 			var versions = scope[key];
-/******/ 			var key = Object.keys(versions).reduce((a, b) => {
-/******/ 				if (!satisfy(requiredVersion, b)) return a;
-/******/ 				return !a || versionLt(a, b) ? b : a;
-/******/ 			}, 0);
-/******/ 			return key && versions[key]
-/******/ 		};
-/******/ 		var getInvalidVersionMessage = (scope, scopeName, key, requiredVersion) => {
-/******/ 			var versions = scope[key];
-/******/ 			return "No satisfying version (" + rangeToString(requiredVersion) + ") of shared module " + key + " found in shared scope " + scopeName + ".\n" +
+/******/ 			return "No satisfying version (" + rangeToString(requiredVersion) + ")" + (eager ? " for eager consumption" : "") + " of shared module " + key + " found in shared scope " + scopeName + ".\n" +
 /******/ 				"Available versions: " + Object.keys(versions).map((key) => {
 /******/ 				return key + " from " + versions[key].from;
 /******/ 			}).join(", ");
 /******/ 		};
-/******/ 		var getValidVersion = (scope, scopeName, key, requiredVersion) => {
-/******/ 			var entry = findValidVersion(scope, key, requiredVersion);
-/******/ 			if(entry) return get(entry);
-/******/ 			throw new Error(getInvalidVersionMessage(scope, scopeName, key, requiredVersion));
-/******/ 		};
-/******/ 		var warn = (msg) => {
+/******/ 		var fail = (msg) => {
+/******/ 			throw new Error(msg);
+/******/ 		}
+/******/ 		var failAsNotExist = (scopeName, key) => {
+/******/ 			return fail("Shared module " + key + " doesn't exist in shared scope " + scopeName);
+/******/ 		}
+/******/ 		var warn = /*#__PURE__*/ (msg) => {
 /******/ 			if (typeof console !== "undefined" && console.warn) console.warn(msg);
 /******/ 		};
-/******/ 		var warnInvalidVersion = (scope, scopeName, key, requiredVersion) => {
-/******/ 			warn(getInvalidVersionMessage(scope, scopeName, key, requiredVersion));
-/******/ 		};
-/******/ 		var get = (entry) => {
-/******/ 			entry.loaded = 1;
-/******/ 			return entry.get()
-/******/ 		};
-/******/ 		var init = (fn) => (function(scopeName, a, b, c) {
+/******/ 		var init = (fn) => (function(scopeName, key, eager, c, d) {
 /******/ 			var promise = __webpack_require__.I(scopeName);
-/******/ 			if (promise && promise.then) return promise.then(fn.bind(fn, scopeName, __webpack_require__.S[scopeName], a, b, c));
-/******/ 			return fn(scopeName, __webpack_require__.S[scopeName], a, b, c);
+/******/ 			if (promise && promise.then && !eager) {
+/******/ 				return promise.then(fn.bind(fn, scopeName, __webpack_require__.S[scopeName], key, false, c, d));
+/******/ 			}
+/******/ 			return fn(scopeName, __webpack_require__.S[scopeName], key, eager, c, d);
 /******/ 		});
 /******/ 		
-/******/ 		var load = /*#__PURE__*/ init((scopeName, scope, key) => {
-/******/ 			ensureExistence(scopeName, key);
-/******/ 			return get(findVersion(scope, key));
+/******/ 		var useFallback = (scopeName, key, fallback) => {
+/******/ 			return fallback ? fallback() : failAsNotExist(scopeName, key);
+/******/ 		}
+/******/ 		var load = /*#__PURE__*/ init((scopeName, scope, key, eager, fallback) => {
+/******/ 			if (!exists(scope, key)) return useFallback(scopeName, key, fallback);
+/******/ 			return get(findLatestVersion(scope, key, eager));
 /******/ 		});
-/******/ 		var loadFallback = /*#__PURE__*/ init((scopeName, scope, key, fallback) => {
-/******/ 			return scope && __webpack_require__.o(scope, key) ? get(findVersion(scope, key)) : fallback();
+/******/ 		var loadVersion = /*#__PURE__*/ init((scopeName, scope, key, eager, requiredVersion, fallback) => {
+/******/ 			if (!exists(scope, key)) return useFallback(scopeName, key, fallback);
+/******/ 			var satisfyingVersion = findSatisfyingVersion(scope, key, requiredVersion, eager);
+/******/ 			if (satisfyingVersion) return get(satisfyingVersion);
+/******/ 			warn(getInvalidVersionMessage(scope, scopeName, key, requiredVersion, eager))
+/******/ 			return get(findLatestVersion(scope, key, eager));
 /******/ 		});
-/******/ 		var loadVersionCheck = /*#__PURE__*/ init((scopeName, scope, key, version) => {
-/******/ 			ensureExistence(scopeName, key);
-/******/ 			return get(findValidVersion(scope, key, version) || warnInvalidVersion(scope, scopeName, key, version) || findVersion(scope, key));
+/******/ 		var loadStrictVersion = /*#__PURE__*/ init((scopeName, scope, key, eager, requiredVersion, fallback) => {
+/******/ 			if (!exists(scope, key)) return useFallback(scopeName, key, fallback);
+/******/ 			var satisfyingVersion = findSatisfyingVersion(scope, key, requiredVersion, eager);
+/******/ 			if (satisfyingVersion) return get(satisfyingVersion);
+/******/ 			if (fallback) return fallback();
+/******/ 			fail(getInvalidVersionMessage(scope, scopeName, key, requiredVersion, eager));
 /******/ 		});
-/******/ 		var loadSingleton = /*#__PURE__*/ init((scopeName, scope, key) => {
-/******/ 			ensureExistence(scopeName, key);
-/******/ 			return getSingleton(scope, scopeName, key);
+/******/ 		var loadSingleton = /*#__PURE__*/ init((scopeName, scope, key, eager, fallback) => {
+/******/ 			if (!exists(scope, key)) return useFallback(scopeName, key, fallback);
+/******/ 			var version = findSingletonVersionKey(scope, key, eager);
+/******/ 			return get(scope[key][version]);
 /******/ 		});
-/******/ 		var loadSingletonVersionCheck = /*#__PURE__*/ init((scopeName, scope, key, version) => {
-/******/ 			ensureExistence(scopeName, key);
-/******/ 			return getSingletonVersion(scope, scopeName, key, version);
+/******/ 		var loadSingletonVersion = /*#__PURE__*/ init((scopeName, scope, key, eager, requiredVersion, fallback) => {
+/******/ 			if (!exists(scope, key)) return useFallback(scopeName, key, fallback);
+/******/ 			var version = findSingletonVersionKey(scope, key, eager);
+/******/ 			if (!satisfy(requiredVersion, version)) {
+/******/ 				warn(getInvalidSingletonVersionMessage(scope, key, version, requiredVersion));
+/******/ 			}
+/******/ 			return get(scope[key][version]);
 /******/ 		});
-/******/ 		var loadStrictVersionCheck = /*#__PURE__*/ init((scopeName, scope, key, version) => {
-/******/ 			ensureExistence(scopeName, key);
-/******/ 			return getValidVersion(scope, scopeName, key, version);
-/******/ 		});
-/******/ 		var loadStrictSingletonVersionCheck = /*#__PURE__*/ init((scopeName, scope, key, version) => {
-/******/ 			ensureExistence(scopeName, key);
-/******/ 			return getStrictSingletonVersion(scope, scopeName, key, version);
-/******/ 		});
-/******/ 		var loadVersionCheckFallback = /*#__PURE__*/ init((scopeName, scope, key, version, fallback) => {
-/******/ 			if(!scope || !__webpack_require__.o(scope, key)) return fallback();
-/******/ 			return get(findValidVersion(scope, key, version) || warnInvalidVersion(scope, scopeName, key, version) || findVersion(scope, key));
-/******/ 		});
-/******/ 		var loadSingletonFallback = /*#__PURE__*/ init((scopeName, scope, key, fallback) => {
-/******/ 			if(!scope || !__webpack_require__.o(scope, key)) return fallback();
-/******/ 			return getSingleton(scope, scopeName, key);
-/******/ 		});
-/******/ 		var loadSingletonVersionCheckFallback = /*#__PURE__*/ init((scopeName, scope, key, version, fallback) => {
-/******/ 			if(!scope || !__webpack_require__.o(scope, key)) return fallback();
-/******/ 			return getSingletonVersion(scope, scopeName, key, version);
-/******/ 		});
-/******/ 		var loadStrictVersionCheckFallback = /*#__PURE__*/ init((scopeName, scope, key, version, fallback) => {
-/******/ 			var entry = scope && __webpack_require__.o(scope, key) && findValidVersion(scope, key, version);
-/******/ 			return entry ? get(entry) : fallback();
-/******/ 		});
-/******/ 		var loadStrictSingletonVersionCheckFallback = /*#__PURE__*/ init((scopeName, scope, key, version, fallback) => {
-/******/ 			if(!scope || !__webpack_require__.o(scope, key)) return fallback();
-/******/ 			return getStrictSingletonVersion(scope, scopeName, key, version);
+/******/ 		var loadStrictSingletonVersion = /*#__PURE__*/ init((scopeName, scope, key, eager, requiredVersion, fallback) => {
+/******/ 			if (!exists(scope, key)) return useFallback(scopeName, key, fallback);
+/******/ 			var version = findSingletonVersionKey(scope, key, eager);
+/******/ 			if (!satisfy(requiredVersion, version)) {
+/******/ 				fail(getInvalidSingletonVersionMessage(scope, key, version, requiredVersion));
+/******/ 			}
+/******/ 			return get(scope[key][version]);
 /******/ 		});
 /******/ 		var installedModules = {};
 /******/ 		var moduleToHandlerMapping = {
-/******/ 			"webpack/sharing/consume/default/@jupyterlab/notebook": () => (loadSingletonVersionCheck("default", "@jupyterlab/notebook", [1,4,1,8])),
-/******/ 			"webpack/sharing/consume/default/@jupyterlab/apputils": () => (loadSingletonVersionCheck("default", "@jupyterlab/apputils", [1,4,2,8])),
-/******/ 			"webpack/sharing/consume/default/@jupyterlab/settingregistry": () => (loadSingletonVersionCheck("default", "@jupyterlab/settingregistry", [1,4,1,8])),
-/******/ 			"webpack/sharing/consume/default/jupyterlab-celltagsclasses/jupyterlab-celltagsclasses": () => (loadStrictVersionCheckFallback("default", "jupyterlab-celltagsclasses", [2,0,5,1], () => (Promise.all([__webpack_require__.e("vendors-node_modules_jupyterlab-celltagsclasses_lib_index_js"), __webpack_require__.e("webpack_sharing_consume_default_jupyterlab_cells")]).then(() => (() => (__webpack_require__(/*! jupyterlab-celltagsclasses */ "./node_modules/jupyterlab-celltagsclasses/lib/index.js"))))))),
-/******/ 			"webpack/sharing/consume/default/@jupyterlab/cells": () => (loadVersionCheck("default", "@jupyterlab/cells", [1,4,1,8]))
+/******/ 			"webpack/sharing/consume/default/@jupyterlab/notebook": () => (loadSingletonVersion("default", "@jupyterlab/notebook", false, [1,4,2,4])),
+/******/ 			"webpack/sharing/consume/default/@jupyterlab/apputils": () => (loadSingletonVersion("default", "@jupyterlab/apputils", false, [1,4,3,4])),
+/******/ 			"webpack/sharing/consume/default/@jupyterlab/settingregistry": () => (loadSingletonVersion("default", "@jupyterlab/settingregistry", false, [1,4,2,4])),
+/******/ 			"webpack/sharing/consume/default/jupyterlab-celltagsclasses/jupyterlab-celltagsclasses": () => (loadStrictVersion("default", "jupyterlab-celltagsclasses", false, [2,0,5,1], () => (Promise.all([__webpack_require__.e("vendors-node_modules_jupyterlab-celltagsclasses_lib_index_js"), __webpack_require__.e("webpack_sharing_consume_default_jupyterlab_cells")]).then(() => (() => (__webpack_require__(/*! jupyterlab-celltagsclasses */ "./node_modules/jupyterlab-celltagsclasses/lib/index.js"))))))),
+/******/ 			"webpack/sharing/consume/default/@jupyterlab/cells": () => (loadVersion("default", "@jupyterlab/cells", false, [1,4,2,4]))
 /******/ 		};
 /******/ 		// no consumes in initial chunks
 /******/ 		var chunkMapping = {
@@ -572,4 +559,4 @@ __webpack_require__.d(exports, {
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=remoteEntry.5792a47aee7240a49818.js.map
+//# sourceMappingURL=remoteEntry.366a53ce48116007fbca.js.map
