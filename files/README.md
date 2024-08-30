@@ -12,4 +12,4 @@ A repo for custom packages is built into the the JupyterLite site on the path `.
 
 *Note that each notebook runs its own webR environment, which means that each notebook needs to install its required packages.*
 
-The webR `library()` function appears to pre-emptively try to install a missing package from the webR repo. Ideally, we would be able to use `options()` to set the path and let `install.packages()` and `library()` inherit from that; BUT this appears either not to be supported (yet) or I haven't found the correct option to set. 
+The webR `library()` function appears to pre-emptively try to install a missing package from the webR repo. Setting `options(webr_pkg_repos= "https://ouseful-demos.github.io/jupyterlite-m348-demo/repo/")` should force `install.packages()` and the `library()` function to pull from this custom repo directly.
