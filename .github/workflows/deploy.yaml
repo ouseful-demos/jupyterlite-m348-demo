@@ -31,9 +31,10 @@ jobs:
       - name: Build the JupyterLite site
         run: |
           cp README.md content
+          cp -r ./packages_wasmbuilt/ ./files/
           jupyter lite build --contents content --output-dir dist
           cp -r ./packages_wasmbuilt/ dist/repo/
-          cp -r ./webr-dist/ dist/webr-dist
+          cp -r ./webr-dist/ dist/webr-dist/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
