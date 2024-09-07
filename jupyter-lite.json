@@ -2,7 +2,7 @@
   "jupyter-config-data": {
     "appName": "JupyterLite",
     "appUrl": "./lab",
-    "appVersion": "0.4.0",
+    "appVersion": "0.4.1",
     "baseUrl": "./",
     "defaultKernelName": "python",
     "faviconUrl": "./lab/favicon.ico",
@@ -37,7 +37,7 @@
       {
         "extension": "./extension",
         "liteExtension": true,
-        "load": "static/remoteEntry.49520554d1116c33a558.js",
+        "load": "static/remoteEntry.4bb9214022f0ee132a9c.js",
         "name": "@r-wasm/jupyterlite-webr-kernel",
         "style": "./style"
       },
