@@ -10,7 +10,7 @@ Notebooks used in the module may require access to packages which are not availa
 
 A repo for custom packages is built into the the JupyterLite site on the path `./repo`. This means that for the JupyterLite environment running at `https://ouseful-demos.github.io/jupyterlite-m348-demo/lab/index.html`, we can install a package in the "local" repo as `install.packages("M348", repos = "https://ouseful-demos.github.io/jupyterlite-m348-demo/repo/")`.
 
-A tideier way od setting the optins is:
+A tidier way od setting the options is:
 
 `options("webr_pkg_repos" = "https://ouseful-demos.github.io/jupyterlite-m348-demo/repo/")`
 
