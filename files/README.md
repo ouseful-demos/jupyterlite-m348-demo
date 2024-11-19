@@ -1,6 +1,6 @@
 # jupyterlite-m348-demo
 
-*This repo / demo is laregley deprecated in favour of the a customised JupyterLite kernel build and JupyterLite environment demo [here](https://github.com/ouseful-testing/jupyterlite-webr-kernel/).*
+*This repo / demo is largely deprecated in favour of the a customised JupyterLite kernel build and JupyterLite environment demo [here](https://github.com/ouseful-testing/jupyterlite-webr-kernel/).*
 
 Demo of R enviromment in JupyterLite with user level configurations to allow:
 
