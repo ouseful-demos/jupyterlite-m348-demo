@@ -11,7 +11,7 @@ jupyterlab-ou-brand-extension==0.2.3
 
 # Notebook cell tools
 jupyterlab-cell-status-extension==0.2.2
-jupyterlab-empinken-extension==0.5.4
+jupyterlab-empinken-extension==0.6.2
 jupyterlab-myst==2.4.0
 jupyterlab-spellchecker==0.8.4
 
