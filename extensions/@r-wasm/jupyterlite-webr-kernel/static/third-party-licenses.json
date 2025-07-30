@@ -1,6 +1,18 @@
 {
   "packages": [
     {
+      "name": "@jupyterlite/contents",
+      "versionInfo": "0.6.2",
+      "licenseId": "BSD-3-Clause",
+      "extractedText": ""
+    },
+    {
+      "name": "@jupyterlite/server",
+      "versionInfo": "0.6.2",
+      "licenseId": "BSD-3-Clause",
+      "extractedText": ""
+    },
+    {
       "name": "process",
       "versionInfo": "0.11.10",
       "licenseId": "MIT",
@@ -8,7 +20,7 @@
     },
     {
       "name": "webr",
-      "versionInfo": "0.3.0",
+      "versionInfo": "0.5.1",
       "licenseId": "SEE LICENSE IN LICENCE.md",
       "extractedText": ""
     }

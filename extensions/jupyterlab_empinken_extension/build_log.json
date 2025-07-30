@@ -701,7 +701,7 @@
             },
             "jupyterlab-celltagsclasses": {},
             "jupyterlab_empinken_extension": {
-              "version": "0.5.4",
+              "version": "0.6.2",
               "singleton": true,
               "import": "/Users/tonyhirst/Documents/GitHub/jupyterlab_empinken_extension/lib/index.js"
             }
